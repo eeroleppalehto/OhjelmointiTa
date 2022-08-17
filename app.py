@@ -1,9 +1,12 @@
 # HENKILÖTIETOJEN KYSELY JA TARKISTUS
 # -----------------------------------
 
-#KIRJASTOJEN JA MODULIEN LATAUS
+# KIRJASTOJEN JA MODULIEN LATAUS
 
-#LUOKKAMÄÄRITYKSET
+# Module from checking finnish socia security numbers
+import finssn # Module for checking
+
+# LUOKKAMÄÄRITYKSET
 
 class Person:
     """Properties of a client and a method
@@ -14,14 +17,19 @@ class Person:
         self.ssNumber = ssNumber
     
 # MAIN LOOP
+while True:
+    stopLoop = ''
+    # Ask for user input and store answers to variables
+    givenName = input('What is your first name? ')
+    surname = input('And what is your surname? ')
+    ssn =  input('Lastly, what is your social security number? ')
+    stopLoop = input('Do you want to continue, press Q').upper()
 
-#Ask for user input and store answers to variables
-givenName = input('What is your first name? ')
-surname = input('And what is your surname? ')
-ssn =  input('Lastly, what is your social security number? ')
+    # Create an object from the Person class
+    person1 = Person(givenName, surname, ssn)
+    century = finssn.centuryCode(person1.ssNumber)
 
-# Create an object from the Person class
-person1 = Person(givenName, surname, ssn)
+    print('Your first name is', person1.firstName, 'and you have born in the', century)
 
-print('Your first name is', person1.firstName)
-print('And your last name is', person1.lastName)
+    if stopLoop =='Q':
+        break
