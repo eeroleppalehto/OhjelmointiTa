@@ -21,9 +21,9 @@ while True:
     stopLoop = ''
     # Ask for user input and store answers to variables
     givenName = input('What is your first name? ')
-    surname = input('And what is your surname? ')
+    surname = input('And what is your last name? ')
     ssn =  input('Lastly, what is your social security number? ')
-    stopLoop = input('Do you want to continue, press Q').upper()
+    stopLoop = input('Do you want to continue, press to end Q').upper()
 
     # Create an object from the Person class
     person1 = Person(givenName, surname, ssn)
