@@ -137,7 +137,7 @@ def age(ssNumber):
     Returns:
         int : age of person
     """
-    currentTime = datetime.datetime.now()
+    currentTime = datetime.date.today()
     birthday = dateOfBirth(ssNumber)
 
     age = currentTime - birthday
