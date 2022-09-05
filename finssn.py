@@ -7,6 +7,7 @@ import datetime
 
 from datetime import date
 from mmap import mmap
+from re import A
 
 
 def centuryCode(ssNumber):
@@ -39,16 +40,19 @@ def dateOfBirth(ssNumber):
     birthday = '1.1.1900'
 
     # Extract date of birth from ssNumber string
-    dd = ssNumber[0:2]
-    mm = ssNumber[2:4]
-    yy = ssNumber[4:6]
+    dd = int(ssNumber[0:2])
+    mm = int(ssNumber[2:4])
+    yy = int(ssNumber[4:6])
 
     # Call function centuryCode() to determine birth century
-    century = str(centuryCode(ssNumber))[:2]
+    century = centuryCode(ssNumber)
+    yyyy = century + yy
     
-    birthday = dd + '.' + mm + '.' + century + yy
+    # birthday = dd + '.' + mm + '.' + century + yy
 
     # Convert to date
+
+    birthday = datetime.datetime(yyyy, mm, dd)
 
     # birthday = date(int(birthday[6:]), int(birthday[3:5], int(birthday[0:2])))
     # birthday = date......
@@ -77,11 +81,74 @@ def gender(ssNumber):
     return gender
 
 
-def testssss(self, arg):
-    pass
+def testSsn(ssNumber):
+    # Tarkistettava numero
+    checkNumberStr = ssNumber[0:6] + ssNumber[7:10]
+    checkNumberInt = int(checkNumberStr)
+
+    # 
+    jakoJaanos = checkNumberInt%31
+
+    sanak = {
+        0 : '0',
+        1 : '1',
+        2 : '2',
+        3 : '3',
+        4 : '4',
+        5 : '5',
+        6 : '6',
+        7 : '7',
+        8 : '8',
+        9 : '9',
+        10 : 'A',
+        11 : 'B',
+        12 : 'C',
+        13 : 'D',
+        14 : 'E',
+        15 : 'F',
+        16 : 'H',
+        17 : 'J',
+        18 : 'K',
+        19 : 'L',
+        20 : 'M',
+        21 : 'N',
+        22 : 'P',
+        23 : 'R',
+        24 : 'S',
+        25 : 'T',
+        26 : 'U',
+        27 : 'V',
+        28 : 'w',
+        29 : 'X',
+        30 : 'Y',
+    }
+
+    if sanak[jakoJaanos] == ssNumber[10:11]:
+        return 'Henkilötunnus on validi'
+    else:
+        return 'Henkilötunnus ei ole validi'
+
+def age(ssNumber):
+    """Calculate age of person from finnish social security number
+
+    Args:
+        ssNumber (str): finnish social security number
+
+    Returns:
+        int : age of person
+    """
+    currentTime = datetime.datetime.now()
+    birthday = dateOfBirth(ssNumber)
+
+    age = currentTime - birthday
+
+    return age
 
 if __name__ == "__main__":
-    ssNumber = '123456-789I'
-    print('syntymävuosisata:',centuryCode(ssNumber))
-    print('Syntymäpäivä:', dateOfBirth(ssNumber))
-    print('Sukupuoli:', gender(ssNumber))
+    ssNumber = '270392-229Y'
+    # print('syntymävuosisata:',centuryCode(ssNumber))
+    # print('Syntymäpäivä:', dateOfBirth(ssNumber))
+    # print('Sukupuoli:', gender(ssNumber))
+    print('Testi ', testSsn(ssNumber))
+    print('Syntymäpäivä:', str(dateOfBirth(ssNumber))[:10])
+    print('Age:', age(ssNumber))
