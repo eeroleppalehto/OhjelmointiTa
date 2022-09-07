@@ -52,7 +52,7 @@ def dateOfBirth(ssNumber):
 
     # Convert to date
 
-    birthday = datetime.datetime(yyyy, mm, dd)
+    birthday = datetime.date(yyyy, mm, dd)
 
     # birthday = date(int(birthday[6:]), int(birthday[3:5], int(birthday[0:2])))
     # birthday = date......
